@@ -4,23 +4,21 @@ organization := "EPFL"
 
 version := "0.2-SNAPSHOT"
 
-scalaVersion := Option(System.getenv("SCALA_VIRTUALIZED_VERSION")).getOrElse("2.10.0-M1-virtualized")
+scalaOrganization := "org.scala-lang.virtualized"
+
+scalaVersion := "2.10.0"
 
 //--- Dependencies
 
-resolvers ++= Seq(
-    ScalaToolsSnapshots, 
-    //needed for custom build of scala test
-    "Dropbox" at "http://dl.dropbox.com/u/12870350/scala-virtualized"
-    )
-
 libraryDependencies ++= Seq(
-    "org.scalatest" % "scalatest_2.10.0-virtualized-SNAPSHOT" % "1.6.1-SNAPSHOT" % "test",
-    "EPFL" %% "js-scala" % "0.2-SNAPSHOT")
+    "org.scalatest" %% "scalatest" % "1.9.1" % "test",
+    "EPFL" %% "js-scala" % "0.3-SNAPSHOT",
+    "play" %% "play" % "2.1-RC2"
+)
     
 //--- End of Dependencies
 
-scalacOptions ++= Seq("-deprecation", "-unchecked", "-Xexperimental", "-P:continuations:enable", "-Yvirtualize")
+scalacOptions ++= Seq("-deprecation", "-unchecked", "-feature", "-Xexperimental", "-P:continuations:enable", "-Yvirtualize")
 
 //Our tests are not threadsafe so disabling parallel execution for now
 parallelExecution in Test := false

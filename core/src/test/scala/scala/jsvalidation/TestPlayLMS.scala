@@ -16,6 +16,7 @@ import scala.js._
 import PlayLMS._
 
 class TestPlayLMS extends Suite {
+  import language.reflectiveCalls
   case class Fields(a: String, b: Int)
   case class OptFields(a: String, b: Option[Int])
   case class MoreFields(a: String, b: Int, c: Int, d: Int)
@@ -153,7 +154,7 @@ class TestPlayLMS extends Suite {
   def assertEqualsCheck(name: String)(content: String): Unit = {
     var failed = true
     try {
-      expect(readFile(prefix+name+".check")){content}
+      expectResult(readFile(prefix+name+".check")){content}
       failed = false
     } finally {
       if (failed) writeFile(prefix+name, content)

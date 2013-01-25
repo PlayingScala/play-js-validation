@@ -22,7 +22,7 @@ object Comments extends Controller {
       "company" -> optional(text),
       "email" -> email,
       "phone" -> optional(text verifying jsPattern("""[0-9.+]+""", "constraint.phone", "A valid phone number is required")),
-      "message" -> nonEmptyText.verifying(jsConstraint("constraint.nice_message", "error.nice_message") { new { def eval(c: JS) = { import c._;
+      "message" -> nonEmptyText.verifying(jsConstraint("constraint.nice_message", "error.nice_message") { new { def eval(c: JS) = { import c._
          (msg: Rep[String]) => {
            val words = msg.split(" ")
            def countWords(regex: String) = words.filter(regex.r.test(_)).length
@@ -40,7 +40,7 @@ object Comments extends Controller {
    * Display an empty form.
    */
   def form = Action {
-    Ok(html.comment.form(js, commentForm));
+    Ok(html.comment.form(js, commentForm))
   }
   
   /**

@@ -12,6 +12,8 @@ import validation.Constraints._
 import scala.js._
 
 object PlayLMS {
+  import language.{reflectiveCalls, existentials}
+
   abstract class JSConstraint[-T:Manifest](name: String, errorName: String, args: Seq[Any], f: T => Boolean) extends Constraint[T](Some(name), args)(o => if (f(o)) Valid else Invalid(ValidationError(errorName, args: _*))) {
     val jsExp: JSExp
     val fExp: jsExp.Rep[Array[Any]] => jsExp.Rep[T => Boolean]
